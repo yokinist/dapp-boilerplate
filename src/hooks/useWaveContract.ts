@@ -3,17 +3,22 @@ import { hasEthereum } from '@/utils';
 import { ethers } from 'ethers';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-const CONTRACT_ADDRESS = '0x7A67ea8Fe82409C46EC25eFF2670459fcFC0Ed85';
+const CONTRACT_ADDRESS = '0x77255bF3e1D2D9BDA46DC52CeE2CE5d3FaeA006b';
 const CONTRACT_ABI = WaveContractABI.abi;
 
-export const useWaveContract = () => {
+type Props = {
+  enable: boolean;
+};
+export const useWaveContract = ({ enable }: Props) => {
   const [totalWaves, setTotalWaves] = useState(0);
   const [mining, setMining] = useState(false);
 
   const waveContract = useMemo(() => {
     if (!hasEthereum()) return null;
     const { ethereum } = window;
-    const provider = new ethers.providers.Web3Provider(ethereum!);
+    if (!ethereum) return null;
+    // @ts-ignore: ethers.providers.ExternalProvider?
+    const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = provider.getSigner();
     return new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
   }, []);
@@ -39,8 +44,9 @@ export const useWaveContract = () => {
   }, [handleGetTotalWaves, waveContract]);
 
   useEffect(() => {
+    if (!enable) return;
     handleGetTotalWaves();
-  }, [handleGetTotalWaves]);
+  }, [enable, handleGetTotalWaves]);
 
   return {
     mining,
