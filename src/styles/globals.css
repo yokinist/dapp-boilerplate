@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  @apply text-4xl font-bold;
+}
+
+h2 {
+  @apply text-3xl font-bold;
+}
+
+h3 {
+  @apply text-2xl font-bold;
+}
+
+h4 {
+  @apply text-xl font-bold;
+}
+
+h4 {
+  @apply text-lg font-bold;
+}
+
+p {
+  @apply text-sm;
+}
+
+@layer utilities {
+  .style-link {
+    @apply underline text-color-primary-default;
+  }
+  .text-large {
+    @apply text-base;
+  }
+  .text-regular {
+    @apply text-sm;
+  }
+  .text-small {
+    @apply text-xs;
+  }
+  .icon-primary {
+    @apply w-6 h-6 text-color-primary-default;
+  }
+  .icon-small {
+    @apply w-4 h-4 text-color-object-light;
+  }
+  .icon-default {
+    @apply w-6 h-6 text-color-object-light;
+  }
+  .icon-large {
+    @apply w-9 h-9 text-color-object-light;
+  }
+  .icon-danger {
+    @apply w-6 h-6 text-color-danger-default;
+  }
+  @variants responsive {
+    .masonry-3-col {
+      column-count: 3;
+      column-gap: 1em;
+    }
+    .masonry-2-col {
+      column-count: 2;
+      column-gap: 1em;
+    }
+    .break-inside {
+      break-inside: avoid;
+    }
+  }
+}

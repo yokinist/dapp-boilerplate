@@ -1,0 +1,15 @@
+.errorWrapper {
+  @apply relative rounded-sm shadow-sm;
+}
+
+.defaultInput {
+  @apply shadow-sm focus:ring-color-primary-default placeholder-color-object-middle focus:border-color-primary-default border-color-border-default;
+}
+
+.errorInput {
+  @apply pr-10 border-color-sub-red-light text-color-sub-red-default placeholder-color-sub-red-light focus:outline-none focus:ring-color-sub-red-default focus:border-color-sub-red-default;
+}
+
+.cardTitleInput {
+  @apply border-none focus:border-none ring-0 focus:ring-0 resize-none m-0 p-0 leading-normal;
+}
