@@ -1,5 +1,5 @@
 import WaveContractABI from '@/artifacts/contracts/Wave.sol/Wave.json';
-import { hasEthereum } from '@/utils';
+import { getEthereumSafety } from '@/utils';
 import { ethers } from 'ethers';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -12,16 +12,15 @@ type Props = {
 export const useWaveContract = ({ enable }: Props) => {
   const [totalWaves, setTotalWaves] = useState(0);
   const [mining, setMining] = useState(false);
+  const ethereum = getEthereumSafety();
 
   const waveContract = useMemo(() => {
-    if (!hasEthereum()) return null;
-    const { ethereum } = window;
     if (!ethereum) return null;
     // @ts-ignore: ethers.providers.ExternalProvider?
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = provider.getSigner();
     return new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-  }, []);
+  }, [ethereum]);
 
   const handleGetTotalWaves = useCallback(async () => {
     if (!waveContract) return;

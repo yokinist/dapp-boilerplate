@@ -1,20 +1,20 @@
 import { RINKEBY_CHAIN_ID } from '@/constants';
+import { EthereumType } from '@/types';
+import { getEthereumSafety } from '@/utils';
 import { useEffect, useState } from 'react';
-import { MetaMaskInpageProvider } from '@metamask/providers';
 
 export const useWallet = () => {
   const [currentAccount, setCurrentAccount] = useState<string>();
   const [currentChainId, setCurrentChainId] = useState<string>();
   const [isRinkebyTestNetwork, setRinkebyTestNetwork] = useState<boolean>(false);
+  const ethereum = getEthereumSafety();
 
-  const checkIfWalletIsConnected = async (ethereum: MetaMaskInpageProvider) => {
+  const checkIfWalletIsConnected = async (ethereum: EthereumType) => {
     const accounts = await ethereum.request({ method: 'eth_accounts' });
     const chainId = await ethereum.request({ method: 'eth_chainId' });
-
     if (typeof chainId === 'string') {
       setCurrentChainId(chainId);
     }
-
     if (!Array.isArray(accounts)) return;
     if (!accounts || accounts.length !== 0) {
       const account = accounts[0];
@@ -26,8 +26,7 @@ export const useWallet = () => {
 
   const connectWallet = async () => {
     try {
-      const { ethereum } = window;
-      if (!ethereum?.request) {
+      if (!ethereum) {
         alert('Get MetaMask!');
         return;
       }
@@ -52,14 +51,13 @@ export const useWallet = () => {
   }, [currentChainId]);
 
   useEffect(() => {
-    const { ethereum } = window;
-    if (!ethereum || !ethereum?.on || !ethereum?.request) return;
+    if (!ethereum) return;
     checkIfWalletIsConnected(ethereum);
     ethereum.on('chainChanged', handleChainChanged);
     return () => {
       ethereum.off('chainChanged', handleChainChanged);
     };
-  }, []);
+  }, [ethereum]);
 
   return {
     isRinkebyTestNetwork,
