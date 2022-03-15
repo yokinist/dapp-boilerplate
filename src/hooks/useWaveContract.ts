@@ -16,7 +16,8 @@ export const useWaveContract = ({ enable }: Props) => {
 
   const waveContract = useMemo(() => {
     if (!ethereum) return null;
-    // @ts-ignore: ethers.providers.ExternalProvider?
+    // #TODO: 型直す
+    // @ts-ignore: ethereum as ethers.providers.ExternalProvider
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = provider.getSigner();
     return new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
