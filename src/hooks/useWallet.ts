@@ -1,7 +1,6 @@
 import { RINKEBY_CHAIN_ID } from '@/constants';
-import { EthereumType } from '@/types';
 import { getEthereumSafety } from '@/utils';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export const useWallet = () => {
   const [currentAccount, setCurrentAccount] = useState<string>();
@@ -9,20 +8,25 @@ export const useWallet = () => {
   const [isRinkebyTestNetwork, setRinkebyTestNetwork] = useState<boolean>(false);
   const ethereum = getEthereumSafety();
 
-  const checkIfWalletIsConnected = async (ethereum: EthereumType) => {
-    const accounts = await ethereum.request({ method: 'eth_accounts' });
-    const chainId = await ethereum.request({ method: 'eth_chainId' });
-    if (typeof chainId === 'string') {
-      setCurrentChainId(chainId);
-    }
+  const handleSetAccount = useCallback((accounts: unknown) => {
     if (!Array.isArray(accounts)) return;
     if (!accounts || accounts.length !== 0) {
       const account = accounts[0];
       setCurrentAccount(account);
     } else {
-      console.info('No authorized account found');
+      alert('No authorized account found');
     }
-  };
+  }, []);
+
+  const checkIfWalletIsConnected = useCallback(async () => {
+    if (!ethereum) return;
+    const accounts = await ethereum.request({ method: 'eth_accounts' });
+    const chainId = await ethereum.request({ method: 'eth_chainId' });
+    if (typeof chainId === 'string') {
+      setCurrentChainId(chainId);
+    }
+    handleSetAccount(accounts);
+  }, [ethereum, handleSetAccount]);
 
   const connectWallet = async () => {
     try {
@@ -31,8 +35,7 @@ export const useWallet = () => {
         return;
       }
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-      if (!Array.isArray(accounts)) return;
-      setCurrentAccount(accounts[0]);
+      handleSetAccount(accounts);
     } catch (error) {
       console.error(error);
     }
@@ -52,12 +55,12 @@ export const useWallet = () => {
 
   useEffect(() => {
     if (!ethereum) return;
-    checkIfWalletIsConnected(ethereum);
+    checkIfWalletIsConnected();
     ethereum.on('chainChanged', handleChainChanged);
     return () => {
       ethereum.off('chainChanged', handleChainChanged);
     };
-  }, [ethereum]);
+  }, [checkIfWalletIsConnected, ethereum]);
 
   return {
     isRinkebyTestNetwork,
