@@ -1,7 +1,7 @@
 import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
 import { useMemo } from 'react';
-import { PAGE_PATH_AND_NAME } from '@/constants';
+import { APP_NAME, PAGE_PATH_AND_NAME } from '@/constants';
 
 export const NextHead: React.VFC = () => {
   const router = useRouter();
@@ -10,7 +10,7 @@ export const NextHead: React.VFC = () => {
   }, [router]);
   return (
     <Head>
-      <title>{currentPage?.name}</title>
+      <title>{`${currentPage?.name} | ${APP_NAME}`}</title>
     </Head>
   );
 };
