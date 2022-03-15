@@ -1,7 +1,7 @@
-import { PAGE_PATH_AND_NAME } from '@/constants';
 import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
 import { useMemo } from 'react';
+import { PAGE_PATH_AND_NAME } from '@/constants';
 
 export const NextHead: React.VFC = () => {
   const router = useRouter();

@@ -1,7 +1,7 @@
-import WaveContractABI from '@/artifacts/contracts/Wave.sol/Wave.json';
-import { getEthereumSafety } from '@/utils';
 import { ethers } from 'ethers';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import WaveContractABI from '@/artifacts/contracts/Wave.sol/Wave.json';
+import { getEthereumSafety } from '@/utils';
 
 const CONTRACT_ADDRESS = '0x77255bF3e1D2D9BDA46DC52CeE2CE5d3FaeA006b';
 const CONTRACT_ABI = WaveContractABI.abi;

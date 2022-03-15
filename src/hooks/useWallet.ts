@@ -1,6 +1,6 @@
+import { useCallback, useEffect, useState } from 'react';
 import { RINKEBY_CHAIN_ID } from '@/constants';
 import { getEthereumSafety } from '@/utils';
-import { useCallback, useEffect, useState } from 'react';
 
 type ReturnUseWallet = {
   isRinkebyTestNetwork: boolean;
