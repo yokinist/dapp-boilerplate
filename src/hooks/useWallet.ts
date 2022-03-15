@@ -2,7 +2,14 @@ import { RINKEBY_CHAIN_ID } from '@/constants';
 import { getEthereumSafety } from '@/utils';
 import { useCallback, useEffect, useState } from 'react';
 
-export const useWallet = () => {
+type ReturnUseWallet = {
+  isRinkebyTestNetwork: boolean;
+  currentAccount: string | undefined;
+  connectWallet: () => void;
+  checkIfWalletIsConnected: () => void;
+};
+
+export const useWallet = (): ReturnUseWallet => {
   const [currentAccount, setCurrentAccount] = useState<string>();
   const [currentChainId, setCurrentChainId] = useState<string>();
   const [isRinkebyTestNetwork, setRinkebyTestNetwork] = useState<boolean>(false);

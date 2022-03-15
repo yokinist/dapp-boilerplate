@@ -9,9 +9,16 @@ const CONTRACT_ABI = WaveContractABI.abi;
 type Props = {
   enable: boolean;
 };
-export const useWaveContract = ({ enable }: Props) => {
-  const [totalWaves, setTotalWaves] = useState(0);
-  const [mining, setMining] = useState(false);
+
+type ReturnUseWaveContract = {
+  mining: boolean;
+  totalWaves: number;
+  handleWave: () => void;
+};
+
+export const useWaveContract = ({ enable }: Props): ReturnUseWaveContract => {
+  const [totalWaves, setTotalWaves] = useState<number>(0);
+  const [mining, setMining] = useState<boolean>(false);
   const ethereum = getEthereumSafety();
 
   const waveContract = useMemo(() => {
