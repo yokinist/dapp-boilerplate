@@ -30,7 +30,7 @@ const Page: React.VFC<Props> = ({}) => {
                 {mining ? 'mining...' : 'Wave 👋'}
               </Button>
             </div>
-            <div>{totalWaves}回</div>
+            <div>total: {totalWaves} waves</div>
           </>
         )}
       </div>
