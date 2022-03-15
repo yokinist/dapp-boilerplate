@@ -3,7 +3,6 @@ import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/do
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
-
     return initialProps;
   }
 
@@ -11,7 +10,7 @@ class MyDocument extends Document {
     return (
       <Html lang="ja" prefix="og: http://ogp.me/ns#">
         <Head>
-          <link rel="shortcut icon" href={'/favicon.ico'} />
+          <link rel="shortcut icon" href="/favicon.ico" />
         </Head>
         <body>
           <Main />
