@@ -51,22 +51,22 @@ export const useWallet = (): ReturnUseWallet => {
     }
   };
 
-  const handleChainChanged = (chainId: unknown) => {
-    if (typeof chainId === 'string') {
-      setCurrentChainId(chainId);
-    }
-  };
-
   useEffect(() => {
     if (!ethereum) return;
     checkIfWalletIsConnected();
+    const handleChainChanged = (chainId: unknown) => {
+      if (typeof chainId === 'string') {
+        setCurrentChainId(chainId);
+      }
+    };
     ethereum.on('chainChanged', handleChainChanged);
     return () => {
       if (ethereum?.off) {
         ethereum.off('chainChanged', handleChainChanged);
       }
     };
-  }, [checkIfWalletIsConnected, ethereum]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     isRinkebyTestNetwork,
