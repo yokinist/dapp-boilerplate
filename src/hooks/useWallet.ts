@@ -65,7 +65,9 @@ export const useWallet = (): ReturnUseWallet => {
     checkIfWalletIsConnected();
     ethereum.on('chainChanged', handleChainChanged);
     return () => {
-      ethereum.off('chainChanged', handleChainChanged);
+      if (ethereum?.off) {
+        ethereum.off('chainChanged', handleChainChanged);
+      }
     };
   }, [checkIfWalletIsConnected, ethereum]);
 
