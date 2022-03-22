@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { RINKEBY_CHAIN_ID } from '@/constants';
 import { getEthereumSafety } from '@/utils';
 
@@ -12,8 +12,11 @@ type ReturnUseWallet = {
 export const useWallet = (): ReturnUseWallet => {
   const [currentAccount, setCurrentAccount] = useState<string>();
   const [currentChainId, setCurrentChainId] = useState<string>();
-  const [isRinkebyTestNetwork, setRinkebyTestNetwork] = useState<boolean>(false);
   const ethereum = getEthereumSafety();
+
+  const isRinkebyTestNetwork = useMemo(() => {
+    return currentChainId === RINKEBY_CHAIN_ID;
+  }, [currentChainId]);
 
   const handleSetAccount = useCallback((accounts: unknown) => {
     if (!Array.isArray(accounts)) return;
@@ -53,12 +56,6 @@ export const useWallet = (): ReturnUseWallet => {
       setCurrentChainId(chainId);
     }
   };
-
-  useEffect(() => {
-    if (!currentChainId) return;
-    const isRinkByChainId = currentChainId === RINKEBY_CHAIN_ID;
-    setRinkebyTestNetwork(isRinkByChainId);
-  }, [currentChainId]);
 
   useEffect(() => {
     if (!ethereum) return;
