@@ -30,12 +30,16 @@ export const useWallet = (): ReturnUseWallet => {
 
   const checkIfWalletIsConnected = useCallback(async () => {
     if (!ethereum) return;
-    const accounts = await ethereum.request({ method: 'eth_accounts' });
-    const chainId = await ethereum.request({ method: 'eth_chainId' });
-    if (typeof chainId === 'string') {
-      setCurrentChainId(chainId);
+    try {
+      const accounts = await ethereum.request({ method: 'eth_accounts' });
+      const chainId = await ethereum.request({ method: 'eth_chainId' });
+      if (typeof chainId === 'string') {
+        setCurrentChainId(chainId);
+      }
+      handleSetAccount(accounts);
+    } catch (err) {
+      console.error(err);
     }
-    handleSetAccount(accounts);
   }, [ethereum, handleSetAccount]);
 
   const connectWallet = async () => {
