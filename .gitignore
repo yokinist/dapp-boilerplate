@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/src/libs/hardhat/node_modules
 /.pnp
 .pnp.js
 
@@ -38,3 +39,4 @@ yarn-error.log*
 /src/libs/hardhat/artifacts/*
 !/src/libs/hardhat/artifacts/contracts
 /cache
+/src/libs/hardhat/cache
