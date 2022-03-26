@@ -14,12 +14,12 @@
     "lint": "next lint",
     "format": "prettier --write --ignore-path .prettierignore",
     "check:types": "tsc --noEmit -p tsconfig.json",
-    "postinstall": "npx simple-git-hooks && yarn compile-contract-types"
+    "postinstall": "npx simple-git-hooks"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged",
     "commit-msg": "npx commitlint --edit $1",
-    "pre-push": "yarn compile-contract-types && yarn tsc"
+    "pre-push": "yarn contract:codegen-types && yarn tsc"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.1",
