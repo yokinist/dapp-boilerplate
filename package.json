@@ -8,11 +8,11 @@
     "dev:path": "pathpida -p .gitignore -w -o src/libs ",
     "contract:run": "hardhat run src/scripts/run.js",
     "contract:deploy": "hardhat run src/scripts/deploy.js --network rinkeby",
-    "contract:codegen-types": "typechain --target ethers-v5 --out-dir './src/types/contracts' './src/artifacts/!(build-info)/**/+([a-zA-Z0-9_]).json'",
+    "contract:codegen-types": "typechain --target ethers-v5 --out-dir './src/libs/hardhat/types' './src/libs/hardhat/artifacts/!(build-info)/**/+([a-zA-Z0-9_]).json'",
     "build": "pathpida -p .gitignore && next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write",
+    "format": "prettier --write --ignore-path .prettierignore",
     "check:types": "tsc --noEmit -p tsconfig.json",
     "postinstall": "npx simple-git-hooks && yarn compile-contract-types"
   },

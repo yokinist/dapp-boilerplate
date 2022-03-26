@@ -35,6 +35,6 @@ yarn-error.log*
 .vercel
 
 # compile contract
-/src/artifacts/*
-!/src/artifacts/contracts
+/src/libs/hardhat/artifacts/*
+!/src/libs/hardhat/artifacts/contracts
 /cache
