@@ -29,6 +29,6 @@ module.exports = {
     },
   },
   paths: {
-    artifacts: './src/artifacts',
+    artifacts: './src/libs/hardhat/artifacts',
   },
 };
