@@ -5,7 +5,7 @@
   "scripts": {
     "contract:run": "hardhat run scripts/run.js",
     "contract:deploy": "hardhat run scripts/deploy.js --network rinkeby",
-    "contract:codegen-types": "typechain --target ethers-v5 --out-dir './types' './artifacts/!(build-info)/**/+([a-zA-Z0-9_]).json'"
+    "contract:codegen-types": "typechain --target ethers-v5 --out-dir './types' './abis/!(build-info)/**/+([a-zA-Z0-9_]).json'"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.5",
