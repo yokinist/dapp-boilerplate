@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import WaveContractABI from '@/libs/hardhat/artifacts/contracts/Wave.sol/Wave.json';
+import WaveContractABI from '@/libs/hardhat/abis/contracts/Wave.sol/Wave.json';
 import type { Wave as WaveType } from '@/libs/hardhat/types/contracts';
 import { getEthereumSafety } from '@/utils';
 

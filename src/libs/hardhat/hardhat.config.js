@@ -29,6 +29,6 @@ module.exports = {
     },
   },
   paths: {
-    artifacts: './artifacts',
+    artifacts: './abis',
   },
 };
